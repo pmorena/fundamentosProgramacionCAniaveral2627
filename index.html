@@ -1,0 +1,493 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRYTEX | Crypto Dashboard</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: #090e1b;
+    color: white;
+}
+
+header {
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 8%;
+    background: #101729;
+    border-bottom: 1px solid #202a40;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    color: #947bff;
+}
+
+nav {
+    display: flex;
+    gap: 30px;
+}
+
+nav a {
+    color: #aab5ca;
+    text-decoration: none;
+    transition: .3s;
+}
+
+nav a:hover {
+    color: #947bff;
+}
+
+.btn {
+    background: #7658ff;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 9px;
+    color: white;
+    cursor: pointer;
+}
+
+.hero {
+    padding: 85px 8% 55px;
+    background: radial-gradient(
+        circle at 80% 20%,
+        #30245f 0%,
+        #090e1b 55%
+    );
+}
+
+.hero h1 {
+    font-size: clamp(35px, 5vw, 60px);
+    max-width: 700px;
+    margin-bottom: 20px;
+}
+
+.hero h1 span {
+    color: #947bff;
+}
+
+.hero p {
+    color: #aab5ca;
+    font-size: 17px;
+    max-width: 550px;
+    line-height: 1.7;
+}
+
+.hero .btn {
+    margin-top: 30px;
+}
+
+.container {
+    padding: 40px 8%;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.card {
+    background: #141e32;
+    border: 1px solid #26324b;
+    border-radius: 15px;
+    padding: 25px;
+    transition: .3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: #947bff;
+}
+
+.card p {
+    color: #aab5ca;
+    margin-bottom: 15px;
+}
+
+.card h2 {
+    font-size: 27px;
+}
+
+.green {
+    color: #38d996;
+}
+
+.red {
+    color: #ff647c;
+}
+
+.section-title {
+    margin-bottom: 25px;
+    font-size: 27px;
+}
+
+.search {
+    width: 100%;
+    background: #141e32;
+    border: 1px solid #26324b;
+    border-radius: 10px;
+    padding: 15px;
+    color: white;
+    outline: none;
+    margin-bottom: 25px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #141e32;
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 20px;
+    text-align: left;
+    border-bottom: 1px solid #26324b;
+}
+
+th {
+    color: #929fb9;
+    font-size: 13px;
+}
+
+td {
+    font-size: 14px;
+}
+
+.coin {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: bold;
+}
+
+.coin-icon {
+    background: #28244d;
+    color: #a38dff;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+}
+
+.chart-card {
+    margin-top: 35px;
+}
+
+canvas {
+    width: 100%;
+    height: 260px;
+}
+
+footer {
+    background: #101729;
+    text-align: center;
+    padding: 30px;
+    color: #8995ad;
+    margin-top: 50px;
+}
+
+@media(max-width: 750px) {
+    header {
+        padding: 0 5%;
+    }
+
+    nav {
+        display: none;
+    }
+
+    .hero, .container {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .table-wrapper {
+        overflow-x: auto;
+    }
+
+    table {
+        min-width: 650px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">✦ CRYTEX</div>
+
+    <nav>
+        <a href="#inicio">Inicio</a>
+        <a href="#mercado">Mercado</a>
+        <a href="#grafica">Gráficas</a>
+    </nav>
+
+    <button class="btn" onclick="alert('¡Bienvenido a CRYTEX!')">
+        Explorar
+    </button>
+</header>
+
+<section class="hero" id="inicio">
+    <h1>El futuro de las <span>finanzas</span> empieza aquí.</h1>
+
+    <p>
+        Descubre el mundo de las criptomonedas.
+        Consulta precios, analiza tendencias y
+        mantente al día con el mercado digital.
+    </p>
+
+    <button class="btn"
+    onclick="document.getElementById('mercado').scrollIntoView({behavior:'smooth'})">
+        Explorar mercado →
+    </button>
+</section>
+
+<section class="container">
+
+    <div class="stats">
+        <div class="card">
+            <p>Capitalización del mercado</p>
+            <h2>$2.48 T</h2>
+            <br>
+            <span class="green">▲ 3.42%</span>
+        </div>
+
+        <div class="card">
+            <p>Volumen 24 horas</p>
+            <h2>$84.6 B</h2>
+            <br>
+            <span class="green">▲ 5.18%</span>
+        </div>
+
+        <div class="card">
+            <p>Dominancia Bitcoin</p>
+            <h2>58.4%</h2>
+            <br>
+            <span class="green">▲ 0.82%</span>
+        </div>
+    </div>
+
+</section>
+
+<section class="container" id="mercado">
+
+    <h2 class="section-title">Mercado de criptomonedas</h2>
+
+    <input
+        class="search"
+        type="text"
+        id="search"
+        placeholder="🔍 Buscar criptomoneda..."
+    >
+
+    <div class="table-wrapper">
+    <table>
+        <thead>
+            <tr>
+                <th>Criptomoneda</th>
+                <th>Precio</th>
+                <th>24 horas</th>
+                <th>Capitalización</th>
+            </tr>
+        </thead>
+
+        <tbody id="crypto-table">
+
+        </tbody>
+    </table>
+    </div>
+
+    <div class="card chart-card" id="grafica">
+        <h2 class="section-title">Evolución del mercado</h2>
+        <canvas id="chart"></canvas>
+        <p>Gráfica de demostración · Últimos 30 días</p>
+    </div>
+
+</section>
+
+<footer>
+    <h3 class="logo">✦ CRYTEX</h3>
+    <br>
+    <p>Tu portal de criptomonedas.</p>
+    <br>
+    <p>© 2026 CRYTEX - Todos los derechos reservados.</p>
+</footer>
+
+<script>
+
+// Datos de demostración
+const cryptos = [
+    {name:"Bitcoin",symbol:"BTC",icon:"₿",
+    price:96420,change:2.45,market:"1.91 T"},
+
+    {name:"Ethereum",symbol:"ETH",icon:"Ξ",
+    price:3245,change:1.82,market:"390 B"},
+
+    {name:"Solana",symbol:"SOL",icon:"◎",
+    price:185.40,change:5.21,market:"85 B"},
+
+    {name:"BNB",symbol:"BNB",icon:"◆",
+    price:625.30,change:-0.84,market:"91 B"},
+
+    {name:"XRP",symbol:"XRP",icon:"✕",
+    price:2.35,change:3.10,market:"135 B"},
+
+    {name:"Cardano",symbol:"ADA",icon:"₳",
+    price:0.78,change:-1.25,market:"27 B"}
+];
+
+// Mostrar criptomonedas
+function renderCryptos(data) {
+
+    const table = document.getElementById("crypto-table");
+
+    table.innerHTML = data.map(coin => `
+
+        <tr>
+            <td>
+                <div class="coin">
+                    <div class="coin-icon">${coin.icon}</div>
+                    <div>
+                        ${coin.name}
+                        <small style="color:#8995ad">
+                            ${coin.symbol}
+                        </small>
+                    </div>
+                </div>
+            </td>
+
+            <td>$${coin.price.toLocaleString("en-US")}</td>
+
+            <td class="${coin.change >= 0 ? 'green' : 'red'}">
+                ${coin.change > 0 ? '+' : ''}
+                ${coin.change}%
+            </td>
+
+            <td>$${coin.market}</td>
+        </tr>
+
+    `).join("");
+}
+
+renderCryptos(cryptos);
+
+// Buscador
+document.getElementById("search")
+.addEventListener("input", function() {
+
+    const value = this.value.toLowerCase();
+
+    const filtered = cryptos.filter(coin =>
+        coin.name.toLowerCase().includes(value) ||
+        coin.symbol.toLowerCase().includes(value)
+    );
+
+    renderCryptos(filtered);
+
+});
+
+// Gráfica con Canvas
+const canvas = document.getElementById("chart");
+const ctx = canvas.getContext("2d");
+
+function drawChart() {
+
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
+    const ratio = window.devicePixelRatio || 1;
+
+    canvas.width = width * ratio;
+    canvas.height = height * ratio;
+
+    ctx.scale(ratio, ratio);
+
+    ctx.clearRect(0, 0, width, height);
+
+    // Líneas de fondo
+    ctx.strokeStyle = "#26324b";
+    ctx.lineWidth = 1;
+
+    for(let i=1; i<5; i++) {
+        let y = height * i / 5;
+        ctx.beginPath();
+        ctx.moveTo(0,y);
+        ctx.lineTo(width,y);
+        ctx.stroke();
+    }
+
+    // Datos ilustrativos
+    const values = [
+        90,75,82,65,72,50,61,43,55,36,
+        45,29,40,25,38,20,30,15,27,12
+    ];
+
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+
+    const points = values.map((v,i) => ({
+        x: i * width / (values.length-1),
+        y: height - 15 -
+        ((v-min)/(max-min)) * (height-30)
+    }));
+
+    // Degradado
+    const gradient = ctx.createLinearGradient(0,0,0,height);
+    gradient.addColorStop(0,"rgba(148,123,255,.35)");
+    gradient.addColorStop(1,"rgba(148,123,255,0)");
+
+    ctx.beginPath();
+    points.forEach((p,i) => {
+        if(i===0) ctx.moveTo(p.x,p.y);
+        else ctx.lineTo(p.x,p.y);
+    });
+
+    ctx.lineTo(width,height);
+    ctx.lineTo(0,height);
+    ctx.closePath();
+
+    ctx.fillStyle = gradient;
+    ctx.fill();
+
+    // Línea principal
+    ctx.beginPath();
+
+    points.forEach((p,i) => {
+        if(i===0) ctx.moveTo(p.x,p.y);
+        else ctx.lineTo(p.x,p.y);
+    });
+
+    ctx.strokeStyle = "#947bff";
+    ctx.lineWidth = 3;
+    ctx.lineJoin = "round";
+    ctx.stroke();
+}
+
+drawChart();
+
+window.addEventListener("resize", drawChart);
+
+</script>
+
+</body>
+</html>
+
